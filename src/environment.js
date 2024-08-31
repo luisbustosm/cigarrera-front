@@ -1,3 +1,3 @@
 export class environment {
-    static baseUrl = 'http://localhost:3000/api';
+    static baseUrl = 'https://cigarrera-api.vercel.app/api';
 }    
