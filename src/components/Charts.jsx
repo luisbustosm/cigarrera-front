@@ -26,6 +26,7 @@ export const Charts = () => {
         datasets: [{
           label: 'Cantidad de cigarros',
           data: responseData.result.map(d => d.count),
+          fill: true,
         }]
       };
 
