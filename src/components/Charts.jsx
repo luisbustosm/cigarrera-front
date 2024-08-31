@@ -50,6 +50,7 @@ export const Charts = () => {
       <div className="row mt-5">
         <div className="chart-container">
           {!loading && chartData.datasets ? <Line
+            height="500px"
             data={ chartData }
             options={{
               plugins: {
@@ -59,7 +60,7 @@ export const Charts = () => {
                 },
                 legend: {
                   display: false
-                }
+                },
               }
             }}
           /> : <div className='text-center'><div className="spinner-border" role="status"></div></div>}
