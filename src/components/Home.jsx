@@ -3,37 +3,39 @@ import { environment } from '../environment'
 
 export const Home = () => {
 
-    const [countRecords, useCountRecords] = useState([]);
-    const [countRecordsToday, useCountRecordsToday] = useState([]);
-    const [countRecordsYesterday, useCountRecordsYesterday] = useState([]);
-    const [startDate, useStartDate] = useState([]);
+    const [countRecords, setCountRecords] = useState([]);
+    const [countRecordsToday, setCountRecordsToday] = useState([]);
+    const [countRecordsYesterday, setCountRecordsYesterday] = useState([]);
+    const [startDate, setStartDate] = useState([]);
     const [cost, setCost] = useState(0);
-    const [loading, useLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
   
     const onInit = async() => {
       try {
         let response = await fetch(`${environment.baseUrl}/puffs?today=true`);
   
         if (!response.ok) {
-            useLoading(false);
+            setLoading(false);
             throw new Error('Ocurrió un error ' + response.statusText);
         }
   
         let responseData = await response.json();
 
-        useCountRecordsToday(responseData.result.length);
+        const countRecordsTodayValue = responseData.result.length;
+
+        setCountRecordsToday(countRecordsTodayValue);
 
         response = await fetch(`${environment.baseUrl}/puffs`);
   
         if (!response.ok) {
-            useLoading(false);
+            setLoading(false);
             throw new Error('Ocurrió un error ' + response.statusText);
         }
   
         responseData = await response.json();
   
-        useCountRecords(responseData.result.length);
-        useStartDate(new Date(responseData.result[responseData.result.length-1].createdAt).toLocaleDateString())
+        setCountRecords(responseData.result.length);
+        setStartDate(new Date(responseData.result[responseData.result.length-1].createdAt).toLocaleDateString())
         
 
         const today = new Date();
@@ -43,19 +45,19 @@ export const Home = () => {
         response = await fetch(`${environment.baseUrl}/puffs?yesterday=true`);
   
         if (!response.ok) {
-            useLoading(false);
+            setLoading(false);
             throw new Error('Ocurrió un error ' + response.statusText);
         }
   
         responseData = await response.json();
 
-        useCountRecordsYesterday(responseData.result.length);
+        setCountRecordsYesterday(responseData.result.length);
 
-        setCost((countRecordsToday * 2600) / 40);
+        setCost((countRecordsTodayValue * 1000) / 20);
         
-        useLoading(false);
+        setLoading(false);
       }catch (error) {
-          useLoading(false);
+        setLoading(false);
       }
     };
   
@@ -105,9 +107,8 @@ export const Home = () => {
                     <div className="card-body">
                         <h5 className="card-title">Dinero diario ahorrado</h5>
                         <h4 className="card-text">
-                            Si una caja de 20 costaba $1.300 y fumabas 2 cajas, 
-                            fumabas 40 cigarros a un costo de $2.600. Hoy has fumado { countRecordsToday } 🚬 y
-                            llevas gastado ${ cost } generando un ahorro de ${ (2600 - cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 💸.
+                            Fumabas 40 cigarros a un costo de $2.000. Hoy has fumado { countRecordsToday } 🚬 y
+                            llevas gastado ${ cost } generando un ahorro de ${ (2000 - cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 💸.
                         </h4>
                     </div>
                 </div>
