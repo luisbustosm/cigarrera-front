@@ -71,6 +71,11 @@ export const Home = () => {
                 <h1 className="text-secondary">¡Hola Maria! 👋</h1>
             </div>
         </div>
+        {loading ? 
+        <div className="row mt-5">
+            <div className='text-center'><div className="spinner-border" role="status"></div></div>
+        </div>
+        :
         <div className="row mt-5">
             <div className="col-12 col-sm-6">
                 <div className="card">
@@ -114,5 +119,6 @@ export const Home = () => {
                 </div>
             </div>
         </div>
+        }
     </>
 };
