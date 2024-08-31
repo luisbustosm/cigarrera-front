@@ -51,7 +51,7 @@ export const Home = () => {
 
         useCountRecordsYesterday(responseData.result.length);
 
-        setCost(countRecordsToday * 2600) / 40;
+        setCost((countRecordsToday * 2600) / 40);
         
         useLoading(false);
       }catch (error) {
@@ -107,7 +107,7 @@ export const Home = () => {
                         <h4 className="card-text">
                             Si una caja de 20 costaba $1.300 y fumabas 2 cajas, 
                             fumabas 40 cigarros a un costo de $2.600. Hoy has fumado { countRecordsToday } 🚬 y
-                            llevas gastado ${ cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } generando un ahorro de ${ (2600 - cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 💸.
+                            llevas gastado ${ cost } generando un ahorro de ${ (2600 - cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 💸.
                         </h4>
                     </div>
                 </div>
