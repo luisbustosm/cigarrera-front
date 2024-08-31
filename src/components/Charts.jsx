@@ -50,7 +50,7 @@ export const Charts = () => {
       <div className="row mt-5">
         <div className="chart-container">
           {!loading && chartData.datasets ? <Line
-            height="500px"
+            height="200px"
             data={ chartData }
             options={{
               plugins: {
