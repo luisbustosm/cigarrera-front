@@ -1,18 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { environment } from '../environment';
 
 
 export const SmokeCigarrete = () => {
 
-    const [success, useSuccess] = useState(false);
-    const [error, useError] = useState(false);
-    const [loading, useLoading] = useState(false);
+    const navigate = useNavigate();
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onSmoke = async() => {
         try {
-            useLoading(true);
-            useSuccess(false);
-            useError(false);
+            setLoading(true);
+            setSuccess(false);
+            setError(false);
             const response = await fetch(`${environment.baseUrl}/puffs`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -20,21 +22,19 @@ export const SmokeCigarrete = () => {
             });
     
             if (!response.ok) {
-                useLoading(false);
-                useSuccess(false);
-                useError(true);
+                setLoading(false);
+                setSuccess(false);
+                setError(true);
                 throw new Error('Ocurrió un error ' + response.statusText);
             }
-    
-            const responseData = await response.json();
 
-            useLoading(false);
-            useSuccess(true);
-            useError(false);
+            navigate('/records', { state: { added: true } });
+            return;
+
         } catch (error) {
-            useLoading(false);
-            useSuccess(false);
-            useError(true);
+            setLoading(false);
+            setSuccess(false);
+            setError(true);
         }
 
     };

@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { environment } from '../environment';
 
 export const Records = () => {
 
+  const location = useLocation();
   const [records, useRecords] = useState([]);
   const [loading, useLoading] = useState(true);
+  const [success, setSuccess] = useState(true);
 
   const onInit = async() => {
     try {
+      // Acceder a los datos enviados
+      const { added } = location.state || false;
+
       const response = await fetch(`${environment.baseUrl}/puffs`);
 
       if (!response.ok) {
@@ -17,6 +23,7 @@ export const Records = () => {
 
       const responseData = await response.json();
 
+      setSuccess(added);
       useLoading(false);
       useRecords(responseData.result);
     }catch (error) {
@@ -68,21 +75,34 @@ export const Records = () => {
         </div>
     </div>
     <div className="row mt-5">
-      <div className="col">
-        { loading 
-          ? <div className='text-center'><div className="spinner-border" role="status"></div></div> 
-          : <table className="table table-striped">
+    <div className="col">
+  {loading 
+    ? (
+      <div className='text-center'>
+        <div className="spinner-border" role="status"></div>
+      </div>
+    ) 
+    : (
+      <>
+        {success && <div className="alert alert-success mt-5" role="alert">
+                    Se agregó un cigarro a tu registro.
+                </div>}
+        <table className="table table-striped">
           <tbody>
             { 
               records.map(r => (
-              <tr key={ r._id }>
-                <td className='p-3'> Fumaste 1 🚬 { formatDate(new Date(r.createdAt)) }</td>
-              </tr>
+                <tr key={ r._id }>
+                  <td className='p-3'>Fumaste 1 🚬 {formatDate(new Date(r.createdAt))}</td>
+                </tr>
               ))
             }
           </tbody>
-        </table> }
-      </div>
+        </table>
+      </>
+    )
+  }
+</div>
+
     </div>
     </>
 };
