@@ -23,9 +23,9 @@ export const Records = () => {
 
       const responseData = await response.json();
 
-      setSuccess(added);
-      useLoading(false);
       useRecords(responseData.result);
+      useLoading(false);
+      setSuccess(added);
     }catch (error) {
         useLoading(false);
     }
