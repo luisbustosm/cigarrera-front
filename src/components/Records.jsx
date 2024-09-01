@@ -5,8 +5,8 @@ import { environment } from '../environment';
 export const Records = () => {
 
   const location = useLocation();
-  const [records, useRecords] = useState([]);
-  const [loading, useLoading] = useState(true);
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(true);
 
   const onInit = async() => {
@@ -17,17 +17,17 @@ export const Records = () => {
       const response = await fetch(`${environment.baseUrl}/puffs`);
 
       if (!response.ok) {
-          useLoading(false);
+          setLoading(false);
           throw new Error('Ocurrió un error ' + response.statusText);
       }
 
       const responseData = await response.json();
 
-      useRecords(responseData.result);
-      useLoading(false);
+      setRecords(responseData.result);
+      setLoading(false);
       setSuccess(added);
     }catch (error) {
-        useLoading(false);
+        setLoading(false);
     }
   };
 
