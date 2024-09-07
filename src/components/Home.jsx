@@ -88,14 +88,6 @@ export const Home = () => {
             <div className="col-12 col-sm-6 mt-5 mt-sm-0">
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">Cantidad total de cigarros</h5>
-                        <h4 className="card-text">Desde el { startDate } hasta hoy has fumado { countRecords } 🚬</h4>
-                    </div>
-                </div>
-            </div>
-            <div className="col-12 col-sm-6 mt-5">
-                <div className="card">
-                    <div className="card-body">
                         <h5 className="card-title">Descubrimiento</h5>
                         <h4 className="card-text">
                             { countRecordsYesterday > countRecordsToday 
@@ -104,6 +96,14 @@ export const Home = () => {
                             ? <p>Has fumado { countRecordsToday - countRecordsYesterday} cigarros más que ayer. ¡Puedes hacerlo mejor! 😥</p>
                             : <p>Has fumado la misma cantidad que ayer 💆</p>}
                         </h4>
+                    </div>
+                </div>
+            </div>
+            <div className="col-12 col-sm-6 mt-5">
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">Cantidad total de cigarros</h5>
+                        <h4 className="card-text">Desde el { startDate } hasta hoy has fumado { countRecords } 🚬</h4>
                     </div>
                 </div>
             </div>
